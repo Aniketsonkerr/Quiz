@@ -2,19 +2,19 @@ import mongoose from "mongoose";
 
 const quizSchema = new mongoose.Schema(
   {
-    question: {
+    question: { type: String, required: true },
+    type: {
       type: String,
+      enum: ["multiple-choice", "integer"],
       required: true,
-    },
-    options: [
-      {
-        type: String,
+    }, // Add type field
+    options: {
+      type: [String],
+      required: function () {
+        return this.type === "multiple-choice";
       },
-    ],
-    answer: {
-      type: String,
-      required: true,
-    },
+    }, // Conditional required
+    answer: { type: String, required: true },
   },
   { timestamps: true }
 );

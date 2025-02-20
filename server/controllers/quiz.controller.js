@@ -10,12 +10,7 @@ export function getQuestion(req, res) {
 }
 
 export function registerQuestion(req, res) {
-  const { question, options, answer } = req.body;
-  const quiz = new quizModel({
-    question,
-    options,
-    answer,
-  });
+  const quiz = new quizModel(req.body);
   quiz
     .save()
     .then((quiz) => {
